@@ -1,3 +1,0 @@
-- name: Install couchdb
-  shell: apt-get -y install couchdb
-  sudo: yes
