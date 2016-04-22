@@ -1,0 +1,5 @@
+- name: Install python
+  shell: add-apt-repository ppa:fkrull/deadsnakes
+  shell: apt-get update
+  shell: apt-get install python2.7
+  sudo: yes
