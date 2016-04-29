@@ -1,3 +1,4 @@
+# You need source ec2rc.sh file before running this script
 #!/usr/bin/python
 
 import os
@@ -24,7 +25,12 @@ for instance in reservations:
 #print images
 
 #Create an instance
-connection.run_instances("ami-000022c5", key_name='Nectar_Key', instance_type='m1.small', security_groups=['NectarTwitterGroup'])
+connection.run_instances("ami-000022c5", key_name='Nectar_Key', instance_type='m1.small', security_groups=['NectarTwitterGroup'], placement="melbourne-np")
+
+reservations2 = connection.get_all_instances()
+instance = reservations2[0]
+#instance.add_tag("Name","NectarPersonal1")
+
 
 #Attach the volume to instance
 #vol_req = connection.create_volume(50, "melbourne-np")
