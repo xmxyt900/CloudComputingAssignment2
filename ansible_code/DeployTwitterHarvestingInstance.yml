@@ -1,5 +1,6 @@
 # installTwitterHarvestingInstance.yml
 # deploy twiiter harvesting instacnces by using ancible playbook.
+# ansible-playbook -i melbournehavesthosts DeployTwitterHarvestingInstance.yml --private-key Nectar_key --extra-vars="isFirstRun=true"
 ---
 - hosts: tweetharv  # hosts address of tweet harvesting instances.
   sudo: True  # with sudo privilege
@@ -24,12 +25,16 @@
     #format the volume on VM
     - name: formatting out attached volume
       shell: 'sudo mkfs.ext4 /dev/vdc'
+      when: (isFirstRun == 'true')
     #create new folder /mnt/myVolume
     - name: create folder /mnt/myVolume
       shell: 'sudo mkdir /mnt/myVolume'
+      when: (isFirstRun == 'true')
     #mount our volume to the location /mnt/myVolume
     - name: mount
       shell: 'sudo mount /dev/vdc /mnt/myVolume' 
+      when: (isFirstRun == 'true')
+
     #update source list on target mechines.
     - name: Run "apt-get update" to update the source list
       apt: update_cache=yes
@@ -42,6 +47,16 @@
     #- include: tasks/installpython.yml
     #install some important dependencies.
     - include: tasks/installdeps.yml
+
+    #install pip
+    - name: install pip
+      shell: 'sudo apt-get install python-pip'
+      sudo: 'yes'
+
+    #install tweepy
+    - name: install tweepy
+      shell: 'sudo pip install tweepy'
+      sudo: 'yes'
     #download the source code of tweet harvesting program from the github repositiory.
     #- name: download source codes from git
      # git: repo=https://github.com/wangsure/shnewla.git dest=/mnt/thnew
