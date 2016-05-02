@@ -25,15 +25,10 @@ connection = boto.connect_ec2(aws_access_key_id=EC2_ACCESS_KEY,
                     port=8773,
                     path="/services/Cloud")
 
-reservations = connection.get_all_instances()
-#for instance in reservations:
-#    print 'id: ', instance.id,
-#images = connection.get_all_images()
-#print images
 
 #Create 4 instances
 for x in range(0, 4):
-    reservation = connection.run_instances("ami-000022c5", key_name='Nectar_Key', instance_type='m1.small', security_groups=['NectarTwitterGroup'], placement="melbourne-np")
+    reservation[x] = connection.run_instances("ami-000022c5", key_name='Nectar_Key', instance_type='m1.small', security_groups=['NectarTwitterGroup'], placement="melbourne-np")
 
 #instance = reservation.instances[0]
 #connection.create_tags([instance.id], {"Name": "1"})
@@ -45,6 +40,7 @@ for x in range(0, 3):
 
 vol_req[4] = connection.create_volume(100, "melbourne-np")
 
-#Attach the volumes to instances
+reservations = connection.get_all_instances()
+#Attach the volumes to instances and mount them to /dev/vdc
 for x in range(0, 4):
-    connection.attch_volume(vol_req[x], reservation.instance[x], "/dev/vdc")
+    connection.attach_volume(vol_req[x], reservations.instances[x], "/dev/vdc")
