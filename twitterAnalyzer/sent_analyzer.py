@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import re
 import json
 import string
@@ -211,3 +212,24 @@ if __name__ == '__main__':
     stream = Stream(auth, stream_listener)
     stream.filter(locations=[144.3944921,-38.2607199,145.76474,-37.4598457])
         
+=======
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+
+def sent_analyse(text):
+    # import math
+    vader_analyzer = SentimentIntensityAnalyzer()
+    sa = vader_analyzer.polarity_scores(text)
+
+    # if sa['neu'] == 1:
+    #  print('  - **{0}:**  \n'.format('neu'))
+    sa['sent'] = False
+    if sa['neu'] < sa['pos'] or sa['compound'] > 0.75:
+        # print('  - **{0}:**  \n'.format(sa['pos']))
+        sa['sent'] = True
+    elif sa['neg'] > sa['pos'] or sa['compound'] < -0.75:
+        # print('  - **{0}:**  \n'.format(sa['neg']))
+        sa['sent'] = True
+
+    return sa
+>>>>>>> d4da63431143df0b63c71f9d84dcb65d20f58e5c
