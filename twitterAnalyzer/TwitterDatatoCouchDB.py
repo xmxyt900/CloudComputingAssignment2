@@ -3,6 +3,7 @@ import time
 import re
 import couchdb
 import json
+import socket
 from tweepy.parsers import JSONParser
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
@@ -66,5 +67,8 @@ if __name__ == '__main__':
     auth = OAuthHandler(consumer_key[0], consumer_secret[0])
     auth.set_access_token(access_token[0], access_token_secret[0])
     stream = Stream(auth, stream_listener)
-    stream.filter(locations=[144.3944921,-38.2607199,145.76474,-37.4598457])
+    try:
+        stream.filter(locations=[144.3944921,-38.2607199,145.76474,-37.4598457])
+    except (AttributeError, socket.error) as e:
+        pass
         
