@@ -48,13 +48,25 @@
     #install pip
     - name: install pip
       shell: 'sudo apt-get install python-pip'
-      sudo: 'yes' 
-   
-     #install tweepy
+      sudo: 'yes'  
+    #install python-dev
+    - name: install python-dev
+      shell: 'sudo apt-get install python-dev'
+      sudo: 'yes'
+
+     #install tweepy package for Python
     - name: install tweepy
       shell: 'pip install tweepy' 
       sudo: 'yes'
   
+     #install pandas package for Python
+     - name: install pandas
+       shell: 'sudo pip install pandas'
+
+     #install vincent package for Python
+     - name: install vincent
+       shell: 'sudo pip install vincent'
+
      #update all the packages.
     - name: Update all packages to the latest version
       apt: upgrade=dist
