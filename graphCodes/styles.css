@@ -1,36 +1,75 @@
-html {
-    overflow-y:scroll;
+.main-container{
+background-color: rgb(242, 241, 246);
+width: 90%;
+position: absolute;
+margin: 190px 100px 100px;
+height: 500px;
+border-radius: 8px;
+
 }
 
-#map {
-    height: 600px;
-    width: 70%;
-     border: 1px;
-      solid #AAA;
-    }
+.member{
+background: #E9E6EA none repeat scroll 0% 0%;
+width: 18.5%;
+height: 97%;
+display: inline-block;
+border-radius: 8px;
+margin-left: 20px;
+margin-top:5px;
 
-#top_div {
-    height: 300px;
-    width: 100%;
-     border: 1px;
-      solid #AAA;
-    }
+}
+.title{
+background-color: #E3E1E9;
+width: 90%;
+position: absolute;
+margin: 95px 100px 100px;
+height: 95px;
+border-radius: 8px;
+border: 20=E96E46;
+font-size: 29px;
+color: #3636BD;
+font-weight: bold;
+text-align: center;
 
-
-.formRight select {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #E5E5E5;
-    border-radius: 5px 5px 5px 5px;
-    box-shadow: 0 0 10px #E8E8E8 inset;
-    height: 40px;
-    margin: 0 0 0 25px;
-    padding: 10px;
-    width: 25%;
+}
+.title > h2{
+padding: 10px;
 }
 
-#settings
-{
-    background-color: #F2E5F1;
-    border-radius: 8px;
-    padding: 5px;
-}}
+
+.user {
+	display: inline-block;
+	width: 180;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	height: 180px;
+	margin: 50px;
+}
+
+.one {
+  background-image: url('sara.png');
+}
+
+.two {
+
+  background-image: url('pic2.png');
+}
+
+.three {
+
+  background-image: url('pic3.png');
+}
+
+
+.four {
+
+  background-image: url('pic4.png');
+}
+
+
+.five {
+
+  background-image: url('pic5.png');
+}
