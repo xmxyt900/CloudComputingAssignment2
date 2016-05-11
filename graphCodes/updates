@@ -1,0 +1,192 @@
+
+def generate_prt_data(tweet_dict):
+    """
+    recording tweet time stamps for different political parties
+    :param tweet_dict: Dict
+    :return:
+    """
+    result_part = tweet_dict.get('analysis', {})
+    if result_part.get("liberalparty"):
+        lib_ar.append(tweet_dict["created_at"])
+    elif result_part.get("laborparty"):
+        lbr_ar.append(tweet_dict["created_at"])
+    elif result_part.get("greens"):
+        grn_ar.append(tweet_dict["created_at"])
+    elif (result_part.get("lnp") or result_part.get("thenationals")):
+        nlp_ar.append(tweet_dict["created_at"])
+    else:
+        return
+
+
+def generate_files(arg):
+    """
+    generate json files to be shown on the map and charts
+    :param arg:
+    :return:
+    """
+    term_file_name = "term_freq_" + arg + ".json"
+    hash_file_name = "hash_freq_" + arg + ".json"
+    chart_file_name = "time_chart_" + arg + ".json"
+    sent_chart_file_name = "sent_time_chart_" + arg + ".json"
+    geo_file_name = "geo_data_" + arg + ".json"
+    pie_chart_file_name = "pie_chart_" + arg + ".json"
+    lang_suburb_pie_chart_file_name = "suburb_pie_chart_" + arg + ".json"
+    population_suburb_pie_chart_file_name = "population_suburb_pie_chart_" + arg + ".json"
+
+    # file for map
+    with open(geo_file_name, 'w') as fout:
+        fout.write(json.dumps(geo_data, indent=4))
+
+    def set_properties(bar, x_label='', y_label="Freq", padding=20):
+        """
+        define properties for vincent charts
+        :param bar:
+        :param x_label:
+        :param y_label:
+        :param padding:
+        :return:
+        """
+        bar.height = 250
+        bar.width = 380
+        bar.axis_titles(x=x_label, y=y_label)
+
+        ax = AxisProperties(labels=PropertySet(angle=ValueRef(value=70),
+                                               dx=ValueRef(value=padding),
+                                               font_size=ValueRef(value=12),
+                                               font=ValueRef(value="Tahoma, Helvetica")
+                                               ), title=PropertySet(dy=ValueRef(value=40)))
+        bar.axes[0].properties = ax
+
+        ax = AxisProperties(labels=PropertySet(
+                                               font=ValueRef(value="Tahoma, Helvetica")
+                                               ), title=PropertySet(dy=ValueRef(value=-20)))
+        bar.axes[1].properties = ax
+
+        bar.scales['x'].padding = 0.2
+
+    # file for hash frequency
+    if count_hashs:
+        word_freq = count_hashs.most_common(15)
+        labels, freq = zip(*word_freq)
+        data = {'data': freq, 'x': labels}
+        bar = vincent.Bar(data, iter_idx='x')
+        set_properties(bar, padding=25 + len(max(labels, key=len)))
+        bar.to_json(hash_file_name)
+
+    # file for term frequency
+    if count_terms:
+        word_freq = count_terms.most_common(15)
+        labels, freq = zip(*word_freq)
+        data = {'data': freq, 'x': labels}
+        bar = vincent.Bar(data, iter_idx='x', padding=20 + len(max(labels, key=len)))
+        set_properties(bar, padding=20 + len(max(labels, key=len)))
+        bar.to_json(term_file_name)
+
+    def suburb_analyze(file_name):
+        """
+        analyze suburb information based on aurin data
+        :param file_name:
+        :return:
+        """
+        f = json.load(open(file_name))
+        c = {}
+        pop = {}
+        suburb_ratio = {}
+
+        for t in json.load(open("population.json")):
+            pop.update({t["Location"]: t["population"]})
+        sum_val = 0
+        for t in json.load(open(file_name)):
+            # these locations are not the actual location of the tweet, because most of these tweets had defined a 4 point bounding box and
+            # we just calculated the center to represent them o the map.
+            if t["Location"] in ["BEAUMARIS", "MENTONE", "CHELTENHAM"]:
+                continue
+            if pop.get(t["Location"]):
+                label = t["Location"] + " " + str(t["tweetCount"]*100/pop.get(t["Location"])) + "%"
+                suburb_ratio.update({t["Location"] : t["tweetCount"]*100/pop.get(t["Location"])})
+            c.update({t["Location"]: t["tweetCount"]})
+        result = dict(Counter(c).most_common(10))
+        fresult = {}
+        # calculate the percentage for each slice
+        for k in result:
+            sum_val+=result.get(k)
+        for k in result:
+            val=result.get(k)
+            fresult[k + " " + str(int(val*100/sum_val)) + "%"] = val
+
+        pie = generate_pie(fresult, "Location")
+        pie.to_json(lang_suburb_pie_chart_file_name)
+
+
+
+        labels, freq = zip(*Counter(suburb_ratio).most_common(10))
+        data = {'data': freq, 'x': labels}
+        bar = vincent.Bar(data, iter_idx='x')
+        set_properties(bar, padding=25 + len(max(labels, key=len)), x_label="Suburbs", y_label="ratio")
+        bar.to_json(population_suburb_pie_chart_file_name)
+
+        # index = suburbs
+        # bar_data = {'population': [], 'tweetCount':[]}
+        # for s in suburbs:
+        #     if c.get(s) and pop.get(s):
+        #         bar_data['population'].append(pop.get(s))
+        #         bar_data['tweetCount'].append(c.get(s))
+        # max_num = max(bar_data['population'])
+        # bar_data['population'] = [x/max_num for x in bar_data['population']]
+        # bar_data['tweetCount'] = [x/max_num for x in bar_data['tweetCount']]
+        #
+        # df = pandas.DataFrame(bar_data, index=index)
+        # grouped = vincent.GroupedBar(df)
+        # grouped.legend(title='TweetNumber-Population')
+        # set_properties(grouped)
+        # grouped.colors(brew='Set2')
+        # grouped.axis_titles(x='Suburbs', y='Population TweetCount')
+        # grouped.to_json(population_suburb_pie_chart_file_name)
+
+    # file for term frequency
+    if lang_counter:
+        print(lang_counter)
+        pie = generate_pie(dict(lang_counter.most_common(5)), "Language")
+        pie.to_json(pie_chart_file_name)
+        suburb_analyze("suburb_lang.json")
+
+    # file for time chart
+    ones = [1] * len(timestamps)
+    # the index of the series
+    idx = pandas.DatetimeIndex(timestamps)
+    # the actual series (at series of 1s for the moment)
+    ITAvWAL = pandas.Series(ones, index=idx)
+    # Resampling / bucketing
+    per_hour = ITAvWAL.resample('30min').sum().fillna(0)
+    time_chart = vincent.Line(per_hour)
+    set_properties(time_chart, x_label='Time')
+    time_chart.to_json(chart_file_name)
+
+    # file for sentiment analysis
+    idx = pandas.DatetimeIndex(timestamps)
+    # the actual series (at series of 1s for the moment)
+    ITAvWALp = pandas.Series(pos_ar, index=idx)
+    ITAvWALn = pandas.Series(neg_ar, index=idx)
+    ITAvWALnu = pandas.Series(neu_ar, index=idx)
+    # Resampling / bucketing
+    p_h = ITAvWALp.resample('12H').mean().fillna(0)
+    p_n = ITAvWALn.resample('12H').mean().fillna(0)
+    p_nu = ITAvWALnu.resample('12H').mean().fillna(0)
+    xx = pandas.concat({"positove": p_h, "negative": p_n, "neutral": p_nu}, axis=1)
+    time_chart = vincent.Line(xx)
+    set_properties(time_chart, x_label='Time')
+    time_chart.legend(title="catgeories")
+    time_chart.to_json(sent_chart_file_name)
+
+    if arg == "prt":
+        # generate pie chart
+        pie = generate_pie(
+                {"liberal": len(lib_ar), "labor": len(lbr_ar), "labor-national": len(nlp_ar), "greens": len(grn_ar)},
+                "Political Party")
+        pie.to_json(pie_chart_file_name)
+
+        pie = generate_pie(
+                {"liberal": len(lib_ar), "labor": len(lbr_ar), "labor-national": len(nlp_ar), "greens": len(grn_ar)},
+                "Political Party")
+        pie.to_json(pie_chart_file_name)
+        suburb_analyze("suburb_prt.json")

@@ -2,61 +2,31 @@
     background: #F2EAF5 none repeat scroll 0% 0%;
     width: 45%;
     height: 500px;
-    margin: 40px;
+    margin: 10px;
     float: left;
     display: inline-block;
     border-radius: 8px;
-	text-align:center;
-	font-size:16;
-	color:#6594AE;
-	font-weight:bold;
-	font-family: Sans-serif;
-	float:left;
-	padding-top:20px;
+    text-align: center;
+    font-size: 16;
+    color: #6594AE;
+    font-weight: bold;
+    font-family: Sans-serif;
+    padding-top: 20px;
 }
-
-#map {
-
-    display: inline-block;
-    height: 600px;
-    width: 100%;
-     border: 1px;
-      solid #AAA;
-      z-index:50;
-      margin-top:1500px;
-    }
-
+.fixed_container {
+    position: fixed;
+    width: 10%;
+}
 .wrapper {
-	width:100%;
-	margin: 0 auto;
-	display:block;
-	position:absolute;
-	z-index:5;
+    width: 85%;
+    margin: 0 auto;
+    display: block;
+    z-index: 5;
+    padding-right: 10%;
 }
-
-
-.controls2 {
-	overflow:visible;
-	width: 270px;
-	height: 150px;
-	z-index:10;
-	//background: #632D4D none repeat scroll 0% 0%;
-	color: #FFF;
-	margin: 40px;
-	border-radius: 8px;
-
-	 border-style: solid;
-    border-color: #ff0000 #0000ff;
-
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	}
-
-
-
 .legend {
-	line-height: 18px;
-	color: #555;
+    line-height: 18px;
+    color: #555;
 }
 .legend i {
     width: 18px;
@@ -65,32 +35,32 @@
     margin-right: 8px;
     opacity: 0.7;
 }
-
-.btn
-{
-background-repeat:no-repeat;
-    cursor:pointer;
+.btn {
+    background-repeat: no-repeat;
+    cursor: pointer;
     background-size: 100%;
-     background-position: center center;
-     box-shadow: 10px 10px 5px #888888;
-
+    background-position: center center;
+    box-shadow: 10px 10px 5px #888888;
 }
-
-button{
-height: 50px;
-width: 100px;
-border-radius: 8px;
-margin: 10px;
-background-color: #B16B91;
-color: white;
-border:none;
-
+button {
+    height: 87px;
+    width: 100%;
+    border-radius: 8px;
+    border-width: medium;
+    border-style: solid;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    //border-color: rgb(222, 99, 99) rgb(136, 136, 192);
+    opacity: 0.2;
 }
-
-.hvr-border-fade:active, .hvr-border-fade:focus, .hvr-border-fade:hover {
+.hvr-border-fade:active,
+.hvr-border-fade:focus,
+.hvr-border-fade:hover {
     box-shadow: 0px 0px 0px 4px #2098D1 inset, 0px 0px 1px transparent;
 }
-
 .hvr-border-fade {
     display: inline-block;
     vertical-align: middle;
@@ -100,27 +70,34 @@ border:none;
     transition-property: box-shadow;
     box-shadow: 0px 0px 0px 4px #E1E1E1 inset, 0px 0px 1px transparent;
 }
-
 #drink-icon {
-  background-image: url('drink.jpg');
-
-
+    background-image: url('drink-1.jpg');
+    background-size: cover;
 }
-
-
 #neg-icon {
-  background-image: url('ng.jpg');
-
-	background-size: cover;
+    background-image: url('ng-1.jpg');
+    background-size: cover;
 }
-
-
 #pol-icon {
-  background-image: url('pol2.jpg');
-
-	background-size: cover;
+    background-image: url('pol2-1.jpg');
+    background-size: cover;
 }
 #prt-icon {
-  background-image: url('parties.jpg');
-
+    background-image: url('parties-1.jpg');
+    background-size: cover;
+}
+#lang-icon {
+    background-image: url('language-1.jpg');
+    background-size: cover;
+}
+.controls2 {
+    margin-top: 10px;
+    width: 140px
+}
+.nav_title {
+    background-color: #1F599B;
+    border-radius: 8px;
+    color: white;
+    padding: 3px;
+    font-size: 14px;
 }

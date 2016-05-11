@@ -1,75 +1,72 @@
-.main-container{
-background-color: rgb(242, 241, 246);
-width: 90%;
-position: absolute;
-margin: 190px 100px 100px;
-height: 500px;
-border-radius: 8px;
-
+.main-container {
+    background-color: rgb(242, 241, 246);
+    width: 90%;
+    position: absolute;
+    margin: 190px 100px 100px;
+    height: 500px;
+    border-radius: 8px;
 }
+.member {
+    background: #E9E6EA none repeat scroll 0% 0%;
+    width: 18%;
+    height: 97%;
+    display: inline-block;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-top: 5px;
+    text-align: center;
 
-.member{
-background: #E9E6EA none repeat scroll 0% 0%;
-width: 18.5%;
-height: 97%;
-display: inline-block;
-border-radius: 8px;
-margin-left: 20px;
-margin-top:5px;
-
+    font-size: 10;
+    color: #6594AE;
+    font-weight: bold;
+    font-family: Sans-serif;
 }
-.title{
-background-color: #E3E1E9;
-width: 90%;
-position: absolute;
-margin: 95px 100px 100px;
-height: 95px;
-border-radius: 8px;
-border: 20=E96E46;
-font-size: 29px;
-color: #3636BD;
-font-weight: bold;
-text-align: center;
-
+.title {
+    background-color: #E3E1E9;
+    width: 90%;
+    position: absolute;
+    margin: 95px 100px 100px;
+    height: 95px;
+    border-radius: 8px;
+    border: 20=E96E46;
+    font-size: 29px;
+    color: #3636BD;
+    font-weight: bold;
+    text-align: center;
 }
-.title > h2{
-padding: 10px;
+.title > h2 {
+    padding: 10px;
 }
-
-
 .user {
-	display: inline-block;
-	width: 180;
-	border-radius: 50%;
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-	height: 180px;
-	margin: 50px;
+    display: inline-block;
+    width: 180;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 180px;
+    margin: 50px;
 }
-
 .one {
-  background-image: url('sara.png');
-}
+    background-image: url('sara.png');
 
+}
 .two {
-
-  background-image: url('pic2.png');
+    background-image: url('Minxian-photo.jpg');
 }
-
 .three {
-
-  background-image: url('pic3.png');
+    background-image: url('hilman.jpg');
 }
-
-
 .four {
-
-  background-image: url('pic4.png');
+    background-image: url('redowan.jpg');
+     -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
 }
-
-
 .five {
+    background-image: url('tri.png');
+}
+.user{
 
-  background-image: url('pic5.png');
+
 }

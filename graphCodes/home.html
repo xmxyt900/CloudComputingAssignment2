@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
 
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
     <script src="shp.min.js"></script>
     <script src="leaflet.shpfile.js"></script>
@@ -18,157 +18,177 @@
     <title>Twitter Data Analysis</title>
 </head>
 
+
 <body>
-
-
 <div class="top">
 
     <h2 style="color:white;font-size:36px; margin:20px;">Twitter analytics</h2>
 </div>
+<!-- Fixed size after header-->
+<div class="content">
+    <!-- Always on top. Fixed position, fixed width, relative to content width-->
+    <div class="sidebar1">
 
-
-<div class="main">
-    <img src="sent.png" class="background-img" border=0>
-
-    <div class='wrapper'>
-
-
-        <div id='drink-icon' class="controls2 results">
-            <button class=" hvr-border-fade" onclick='fullscreen(this);'>Drink Analysis</button>
+        <div id='pol-icon' class="controls2">
+            <button class=" hvr-border-fade" view="pol" onclick='fullscreen(this);'></button>
             <br>
-
-
-        </div>
-        <div id="drink" class="charts" style="display:none">
-            <div class="vis1 single">
-                <h2> HashTag Frequency</h2>
-            </div>
-            <div class="vis2 single">
-                <h2> Term Frequency</h2>
-            </div>
-            <div class="vis3 single">
-                <h2> Time Frequency</h2>
-            </div>
-            <div class="vis4 single">
-                <h2> Sentiment Analysis</h2>
-            </div>
-
-
         </div>
 
+        <span class="nav_title">Political Views</span>
+        <div id='prt-icon' class="controls2">
+            <button class=" hvr-border-fade" view="prt" onclick='fullscreen(this);'></button>
 
-    </div>
-
-    <div class='wrapper' style="margin-top:170px; ">
+            <br>
+        </div>
+        <span class="nav_title">Political Parties</span>
 
 
         <div id='neg-icon' class="controls2">
-            <button class=" hvr-border-fade" onclick='fullscreen(this);'>Negative Gearing</button>
+            <button class=" hvr-border-fade" view="neg" onclick='fullscreen(this);'></button>
+
             <br>
-
-
         </div>
-        <div id="neg" class="charts" style="display:none;">
-            <div class="vis1 single">
-                <h2> HashTag Frequency</h2>
-            </div>
-            <div class="vis2 single">
-                <h2> Term Frequency</h2>
-            </div>
-            <div class="vis3 single">
-                <h2> Time Frequency</h2>
-            </div>
-            <div class="vis4 single">
-                <h2> Sentiment Analysis</h2>
-            </div>
-        </div>
-    </div>
+        <span class="nav_title">Negative Gearing</span>
 
-    <div class='wrapper' style="margin-top: 340px">
+        <div id='drink-icon' class="controls2">
+            <button class=" hvr-border-fade" view="drink" onclick='fullscreen(this);'></button>
 
-        <div id='pol-icon' class="controls2">
-            <button class=" hvr-border-fade" onclick='fullscreen(this);'>Political Views</button>
             <br>
-
-
         </div>
-        <div id="pol" class="charts" style="display:none;">
-            <div class="vis1 single">
-                <h2> HashTag Frequency</h2>
-            </div>
-            <div class="vis2 single">
-                <h2> Term Frequency</h2>
-            </div>
-            <div class="vis3 single">
-                <h2> Time Frequency</h2>
-            </div>
-            <div class="vis4 single">
-                <h2> Sentiment Analysis</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class='wrapper' style="margin-left: 310px;">
-
-        <div id='prt-icon' class="controls2">
-            <button class=" hvr-border-fade" onclick='fullscreen(this);'>Political Parties</button>
-            <br>
-
-
-        </div>
-        <div id="prt" class="charts" style="display:none;">
-            <div class="vis1 single">
-                <h2> HashTag Frequency</h2>
-            </div>
-            <div class="vis2 single">
-                <h2> Term Frequency</h2>
-            </div>
-            <div class="vis3 single">
-                <h2> Time Frequency</h2>
-            </div>
-            <div class="vis4 single">
-                <h2> Sentiment Analysis</h2>
-            </div>
-            <div class="vis5 single">
-            </div>
-        </div>
-    </div>
-
-     <div class='wrapper' style="margin-left: 310px; margin-top:170px;">
+        <span class="nav_title">Drink Analysis</span>
 
         <div id='lang-icon' class="controls2">
-            <button class=" hvr-border-fade" onclick='fullscreen(this);'>Language</button>
+            <button class=" hvr-border-fade" view="lang" onclick='fullscreen(this);'></button>
+
+            <br>
+        </div>
+        <span class="nav_title">Language</span>
+
+        <div id='team' style="padding:20%; font-size:20;">
+            <a href="index.html">About Us</a>
             <br>
 
-
         </div>
-        <div id="lang" class="charts" style="display:none;">
 
-            <div class="vis5 single">
-            </div>
-        </div>
     </div>
 
-    <div id="map" class="results" style="display:none; "></div>
+    <div id="main">
 
 
+        <img src="sent.png" class="background-img" border=0>
+        <div id="charts_bar" style="display:none;">
+            <span class=" hvr-border-fade"><h2>Result/Charts</h2></span></div>
 
+        <div class='wrapper' style="display:none">
+
+
+            <div id="drink" class="charts">
+                <!--<div class="vis1 single">-->
+                <!--<h2> HashTag Frequency</h2>-->
+                <!--</div>-->
+                <div class="vis2 single">
+                    <h2> Term Frequency</h2>
+                </div>
+                <div class="vis3 single">
+                    <h2> Time Frequency</h2>
+                </div>
+                <div class="vis4 single">
+                    <h2> Sentiment Analysis</h2>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <div class='wrapper' style="display:none;">
+
+
+            <div id="neg" class="charts">
+                <div class="vis1 single">
+                    <h2> HashTag Frequency</h2>
+                </div>
+                <div class="vis2 single">
+                    <h2> Term Frequency</h2>
+                </div>
+                <div class="vis3 single">
+                    <h2> Time Frequency</h2>
+                </div>
+                <div class="vis4 single">
+                    <h2> Sentiment Analysis</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class='wrapper' style="display:none;">
+
+
+            <div id="pol" class="charts">
+                <div class="vis1 single">
+                    <h2> HashTag Frequency</h2>
+                </div>
+                <div class="vis2 single">
+                    <h2> Term Frequency</h2>
+                </div>
+                <div class="vis3 single">
+                    <h2> Time Frequency</h2>
+                </div>
+                <div class="vis4 single">
+                    <h2> Sentiment Analysis</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class='wrapper' style="display:none;">
+
+
+            <div id="prt" class="charts">
+                <div class="vis1 single">
+                    <h2> HashTag Frequency</h2>
+                </div>
+                <div class="vis2 single">
+                    <h2> Term Frequency</h2>
+                </div>
+                <div class="vis3 single">
+                    <h2> Time Frequency</h2>
+                </div>
+                <div class="vis4 single">
+                    <h2> Sentiment Analysis</h2>
+                </div>
+                <div class="vis5 single">
+                </div>
+                <div class="vis6 single">
+                </div>
+            </div>
+        </div>
+
+        <div class='wrapper' style="display:none; ">
+
+            <div id="lang" class="charts">
+
+                <div class="vis1 single" style="height:550px;">
+                </div>
+                <div class="vis2 single" style="height:550px; width:50%;">
+                </div>
+                <div class="vis3 single">
+                    <h2 style="font-size:14px;"> Twitter Activity: The Ratio of the Tweet Numbers to Population</h2>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="map" class="results" style="display:none; "></div>
+
+    </div>
 
 </div>
-
-
 <div id="footer"></div>
-
-
 </body>
+
 
 </html>
 
 <link rel="stylesheet" href="base.css"/>
 <link rel="stylesheet" href="home.css"/>
-<script src="mapcode.js"></script>
 <script src="base.js"></script>
-
-<style>
-
-</style>
